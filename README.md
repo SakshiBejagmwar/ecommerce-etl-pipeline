@@ -39,13 +39,13 @@ This project builds an enterprise-grade ETL pipeline to solve these challenges.
 ---
 
 # Low Level Design (LLD)
-![](LLD.jpg)
+![](LLD.jpeg)
 
 
 ---
 
 # Star Schema Data Model
-![](DMD.jpg)
+![](DMD.jpeg)
 
 
 ---
