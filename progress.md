@@ -2,92 +2,48 @@
 
 ---
 
-# ✅ Phase 1 – Azure Foundation Setup
+## ✅ Phase 1 – Azure Foundation
 
-**Objective**
-Set up Azure infrastructure for the ETL pipeline.
-
-### Completed
-- Created Azure Free Subscription
-- Created Resource Group (`rg-ecommerce-dev`)
-- Created ADLS Gen2 Storage Account (`stgecomdatalake001`)
-- Created `src-files` and `tgt-files` containers
+- Created Azure Resource Group
+- Configured ADLS Gen2 Storage Account
+- Created `src-files` & `tgt-files` containers
 - Uploaded source CSV files
+-------------------------------------------------------------------------------------
+## ✅ Phase 2 – Azure Data Factory
 
-**Technologies**
-- Azure
-- ADLS Gen2
-
-**Status:** ✅ Completed
-
----
-
-# ✅ Phase 2 – Azure Data Factory
-
-**Objective**
-Convert CSV files to Parquet using Azure Data Factory.
-
-### Completed
-- Created Azure Data Factory (`adf-ecommerce001`)
+- Created Azure Data Factory
 - Configured Linked Service
 - Built Copy Data Pipeline
-- Converted CSV to Parquet
+- Converted CSV files to Parquet
 - Stored Parquet files in ADLS Gen2
+---------------------------------------------------------------------------------------
+## ✅ Phase 3 – Databricks Setup
 
-**Technologies**
-- Azure Data Factory
-- ADLS Gen2
-- Parquet
-
-**Status:** ✅ Completed
-
----
-
-# ✅ Phase 3 – Databricks Environment Setup
-
-**Objective**
-Configure Databricks and Unity Catalog for the ETL pipeline.
-
-### Completed
 - Created Azure Databricks Workspace
 - Configured Unity Catalog
-- Created Bronze Catalog & Schema
+- Created Bronze & Silver Catalogs/Schemas
 - Configured Storage Credential & External Location
 - Connected Databricks with ADLS Gen2
+----------------------------------------------------------------------------------------
+## ✅ Phase 4 – Bronze Layer
 
-**Technologies**
-- Azure Databricks
-- Unity Catalog
-- ADLS Gen2
-
-**Status:** ✅ Completed
-
----
-
-# ✅ Phase 4 – Bronze Layer
-
-**Objective**
-Load Parquet files into Bronze Delta Tables.
-
-### Completed
-- Created reusable Config, Logger & Utilities notebooks
-- Loaded all source datasets into Bronze Delta Tables
-- Implemented Incremental Loading (Delta MERGE)
-- Implemented Audit Logging, Error Logging & Watermarking
+- Loaded Parquet files into Bronze Delta Tables
+- Implemented Incremental Loading (MERGE)
+- Implemented Audit Logging, Error Logging & Watermark
 - Enabled Schema Evolution
-- Validated Bronze tables
+- Validated Bronze Tables
 
-**Bronze Tables**
-- Customers
-- Orders
-- Order Payments
-- Products
-- Product Categories
-- Sellers
+**Tables:** Customers, Orders, Products, Payments, Categories, Sellers
+----------------------------------------------------------------------------------------
+## ✅ Phase 5 – Silver Layer
 
-**Technologies**
-- Databricks
-- Delta Lake
-- Unity Catalog
+- Cleansed and standardized Bronze data
+- Performed Data Validation & Deduplication
+- Generated Surrogate Keys
+- Created Business-ready Silver Tables
+- Implemented SCD Type 2 (Customer History)
+- Applied Delta Optimization (OPTIMIZE, ZORDER, VACUUM)
+- Demonstrated Time Travel
 
-**Status:** ✅ Completed
+**Tables:** Customers, Orders, Products, Payments, Categories, Sellers, Sales
+----------------------------------------------------------------------------------------

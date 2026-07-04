@@ -34,25 +34,25 @@ This project builds an enterprise-grade ETL pipeline to solve these challenges.
 
 # High Level Design (HLD)
 
-![](HLD.jpeg)
+![](daigrams/HLD.jpeg)
 
 ---
 
 # Low Level Design (LLD)
-![](LLD.jpeg)
+![](daigrams/LLD.jpeg)
 
 
 ---
 
 # Star Schema Data Model
-![](DMD.jpeg)
+![](daigrams/DMD.jpeg)
 
 
 ---
 
 # List of Tables
 
-![](LOT.png)
+![](daigrams/LOT.png)
 
 ---
 
