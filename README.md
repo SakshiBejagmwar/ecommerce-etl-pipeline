@@ -34,7 +34,7 @@ This project builds an enterprise-grade ETL pipeline to solve these challenges.
 
 # High Level Design (HLD)
 
-> *(Insert High Level Design Diagram Here)*
+![](HLD.jpeg)
 
 ---
 
