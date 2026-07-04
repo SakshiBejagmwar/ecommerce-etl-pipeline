@@ -2,123 +2,92 @@
 
 ---
 
-# Phase 1 - Azure Foundation Setup
+# ✅ Phase 1 – Azure Foundation Setup
 
-## Objective
+**Objective**
+Set up Azure infrastructure for the ETL pipeline.
 
-Set up the Azure environment required for the Enterprise Data Engineering ETL Pipeline.
+### Completed
+- Created Azure Free Subscription
+- Created Resource Group (`rg-ecommerce-dev`)
+- Created ADLS Gen2 Storage Account (`stgecomdatalake001`)
+- Created `src-files` and `tgt-files` containers
+- Uploaded source CSV files
 
----
-
-## Resources Created
-
-| Resource | Name |
-|----------|------|
-| Azure Subscription | Azure Free Trial |
-| Resource Group | rg-ecommerce-dev |
-| Region | Central India |
-| Storage Account | stgecomdatalake001 |
-| Container 1 | src-files |
-| Container 2 | tgt-files |
-
----
-
-## Tasks Completed
-
-- Created Azure Free Account
-- Verified Azure Subscription
-- Created Resource Group
-- Created ADLS Gen2 Storage Account
-- Enabled Hierarchical Namespace
-- Created src-files container
-- Created tgt-files container
-- Uploaded all source CSV files into src-files
-
----
-
-## Validation
-
-- Resource Group created successfully
-- Storage Account created successfully
-- ADLS Gen2 enabled
-- Containers created successfully
-- Source files uploaded successfully
-
----
-
-## Technologies Used
-
-- Microsoft Azure
-- Azure Data Lake Storage Gen2
-
----
-
-## Learning Outcomes
-
-- Azure Subscription
-- Resource Group
-- Azure Storage Account
+**Technologies**
+- Azure
 - ADLS Gen2
-- Storage Containers
-- Uploading data into ADLS
+
+**Status:** ✅ Completed
 
 ---
 
----
+# ✅ Phase 2 – Azure Data Factory
 
-# Phase 2 - Azure Data Factory
+**Objective**
+Convert CSV files to Parquet using Azure Data Factory.
 
-## Objective
+### Completed
+- Created Azure Data Factory (`adf-ecommerce001`)
+- Configured Linked Service
+- Built Copy Data Pipeline
+- Converted CSV to Parquet
+- Stored Parquet files in ADLS Gen2
 
-Convert source CSV files stored in ADLS Gen2 into Parquet format using Azure Data Factory.
-
----
-
-## Resources Created
-
-| Resource | Name |
-|----------|------|
-| Azure Data Factory | adf-ecommerce001 |
-| Linked Service | ls_adls_gen2 |
-| Pipeline | pipeline1 |
-
----
-
-## Tasks Completed
-
-- Created Azure Data Factory
-- Created Linked Service
-- Created Copy Activity Pipeline
-- Converted CSV files into Parquet
-- Stored Parquet files into tgt-files/parquet_files
-
----
-
-## Validation
-
-- Pipeline executed successfully
-- Parquet files created successfully
-- Pipeline monitoring completed without errors
-
----
-
-## Technologies Used
-
+**Technologies**
 - Azure Data Factory
-- Azure Data Lake Storage Gen2
+- ADLS Gen2
 - Parquet
 
----
-
-## Learning Outcomes
-
-- Azure Data Factory
-- Linked Service
-- Datasets
-- Copy Activity
-- Pipeline
-- Trigger
-- Monitoring
-- CSV to Parquet Conversion
+**Status:** ✅ Completed
 
 ---
+
+# ✅ Phase 3 – Databricks Environment Setup
+
+**Objective**
+Configure Databricks and Unity Catalog for the ETL pipeline.
+
+### Completed
+- Created Azure Databricks Workspace
+- Configured Unity Catalog
+- Created Bronze Catalog & Schema
+- Configured Storage Credential & External Location
+- Connected Databricks with ADLS Gen2
+
+**Technologies**
+- Azure Databricks
+- Unity Catalog
+- ADLS Gen2
+
+**Status:** ✅ Completed
+
+---
+
+# ✅ Phase 4 – Bronze Layer
+
+**Objective**
+Load Parquet files into Bronze Delta Tables.
+
+### Completed
+- Created reusable Config, Logger & Utilities notebooks
+- Loaded all source datasets into Bronze Delta Tables
+- Implemented Incremental Loading (Delta MERGE)
+- Implemented Audit Logging, Error Logging & Watermarking
+- Enabled Schema Evolution
+- Validated Bronze tables
+
+**Bronze Tables**
+- Customers
+- Orders
+- Order Payments
+- Products
+- Product Categories
+- Sellers
+
+**Technologies**
+- Databricks
+- Delta Lake
+- Unity Catalog
+
+**Status:** ✅ Completed
