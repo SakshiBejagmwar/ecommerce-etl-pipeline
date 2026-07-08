@@ -1,0 +1,134 @@
+# ============================
+# Python
+# ============================
+
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# ============================
+# Jupyter
+# ============================
+
+.ipynb_checkpoints/
+
+# ============================
+# Databricks
+# ============================
+
+.databricks/
+.dbx/
+
+# ============================
+# DBT
+# ============================
+
+target/
+dbt_packages/
+logs/
+manifest.json
+run_results.json
+partial_parse.msgpack
+
+# ============================
+# Environment Variables
+# ============================
+
+.env
+.env.*
+*.env
+
+# ============================
+# Secrets & Credentials
+# ============================
+
+secrets/
+credentials/
+*.pem
+*.key
+*.crt
+*.pfx
+*.jks
+*.keystore
+
+# Azure Credentials
+*.publishsettings
+service-principal.json
+
+# ============================
+# IDE
+# ============================
+
+.vscode/
+.idea/
+*.iml
+
+# ============================
+# Operating System
+# ============================
+
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ============================
+# Logs
+# ============================
+
+*.log
+logs/
+
+# ============================
+# Temporary Files
+# ============================
+
+tmp/
+temp/
+*.tmp
+*.bak
+
+# ============================
+# Build
+# ============================
+
+dist/
+build/
+
+# ============================
+# Testing
+# ============================
+
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ============================
+# Spark
+# ============================
+
+spark-warehouse/
+metastore_db/
+
+# ============================
+# Local Data Files
+# ============================
+
+*.csv
+*.parquet
+*.delta
+
+# ============================
+# Terraform (Future CI/CD)
+# ============================
+
+.terraform/
+*.tfstate
+*.tfstate.*
+
+# ============================
+# Slack Webhook
+# ============================
+
+slack_webhook.txt
