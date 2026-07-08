@@ -1,3 +1,4 @@
+-- Databricks notebook source
 SELECT * FROM bronze_catalog.bronze_sch.bronze_customers
 LIMIT 10;
 

@@ -1,3 +1,4 @@
+-- Databricks notebook source
 SELECT * FROM silver_catalog.silver_sch.silver_customers
 LIMIT 10;
 

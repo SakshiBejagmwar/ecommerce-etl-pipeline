@@ -14,6 +14,10 @@
 
 # COMMAND ----------
 
+# MAGIC %run ../Common/04_Slack_Notifications
+
+# COMMAND ----------
+
 spark.sql(f"USE CATALOG {SILVER_CATALOG}")
 spark.sql(f"USE SCHEMA {SILVER_SCHEMA}")
 
@@ -103,6 +107,29 @@ print("Silver Order Payments Validation")
 print("=" * 60)
 
 print(f"Row Count : {payments_df.count()}")
+
+try:
+
+    # Existing Silver notebook logic
+
+    send_success_notification(
+        layer="Silver",
+        notebook="03_Silver_Order_Payments",
+        pipeline="Silver_Order_Payments_Load"
+    )
+
+except Exception as e:
+
+    logger.error(str(e))
+
+    send_failure_notification(
+        layer="Silver",
+        notebook="03_Silver_Order_Payments",
+        pipeline="Silver__Order_Payments_Load",
+        error=str(e)
+    )
+
+    raise
 
 display(
     spark.table(

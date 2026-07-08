@@ -14,6 +14,10 @@
 
 # COMMAND ----------
 
+# MAGIC %run ../Common/04_Slack_Notifications
+
+# COMMAND ----------
+
 from pyspark.sql.functions import col, upper, to_timestamp, current_timestamp, current_date
 
 spark.sql(f"USE CATALOG {SILVER_CATALOG}")
@@ -114,6 +118,29 @@ print("Silver Orders Validation")
 print("=" * 60)
 
 print(f"Row Count : {orders_df.count()}")
+
+try:
+
+    # Existing Silver notebook logic
+
+    send_success_notification(
+        layer="Silver",
+        notebook="02_Silver_Orders",
+        pipeline="Silver_Orders_Load"
+    )
+
+except Exception as e:
+
+    logger.error(str(e))
+
+    send_failure_notification(
+        layer="Silver",
+        notebook="02_Silver_Orders",
+        pipeline="Silver_Orders_Load",
+        error=str(e)
+    )
+
+    raise
 
 display(
     spark.table(

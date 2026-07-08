@@ -11,6 +11,10 @@
 
 # COMMAND ----------
 
+# MAGIC %run ../Common/04_Slack_Notifications
+
+# COMMAND ----------
+
 spark.sql(f"USE CATALOG {SILVER_CATALOG}")
 spark.sql(f"USE SCHEMA {SILVER_SCHEMA}")
 
@@ -77,6 +81,29 @@ sales_df.write \
     )
 
 print(f"Row Count : {sales_df.count()}")
+
+try:
+
+    # Existing Silver notebook logic
+
+    send_success_notification(
+        layer="Silver",
+        notebook="07_Silver_Sales",
+        pipeline="Silver_Sales_Load"
+    )
+
+except Exception as e:
+
+    logger.error(str(e))
+
+    send_failure_notification(
+        layer="Silver",
+        notebook="07_Silver_Sales",
+        pipeline="Silver_Sales_Load",
+        error=str(e)
+    )
+
+    raise
 
 display(
     spark.table(

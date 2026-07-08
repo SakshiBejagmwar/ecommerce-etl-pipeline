@@ -1,13 +1,25 @@
 # Databricks notebook source
+# MAGIC %run ../Common/01_Config
+
+# COMMAND ----------
+
+# MAGIC %run ../Common/03_Logger
+
+# COMMAND ----------
+
+# MAGIC %run ../Common/02_Utilities
+
+# COMMAND ----------
+
+# MAGIC %run ../Common/04_Slack_Notifications
+
+# COMMAND ----------
+
 # ==========================================================
 # Project      : E-Commerce Sales Analytics Platform
 # Notebook     : 01_Silver_Load
 # Layer        : Silver
 # ==========================================================
-
-%run ../Common/01_Config.ipynb
-%run ../Common/03_Logger.ipynb
-%run ../Common/02_Utilities.ipynb
 
 spark.sql(f"USE CATALOG {SILVER_CATALOG}")
 spark.sql(f"USE SCHEMA {SILVER_SCHEMA}")
@@ -95,6 +107,29 @@ customers_df.write \
     .saveAsTable(
         f"{SILVER_CATALOG}.{SILVER_SCHEMA}.silver_customers"
     )
+
+try:
+
+    # Existing Silver notebook logic
+
+    send_success_notification(
+        layer="Silver",
+        notebook="01_Silver_Customers",
+        pipeline="Silver_Customers_Load"
+    )
+
+except Exception as e:
+
+    logger.error(str(e))
+
+    send_failure_notification(
+        layer="Silver",
+        notebook="01_Silver_Customers",
+        pipeline="Silver_Customers_Load",
+        error=str(e)
+    )
+
+    raise
 
 # Validation
 display(

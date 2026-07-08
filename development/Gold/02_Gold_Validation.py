@@ -11,6 +11,10 @@
 
 # COMMAND ----------
 
+# MAGIC %run ../Common/04_Slack_Notifications
+
+# COMMAND ----------
+
 spark.sql(f"USE CATALOG {GOLD_CATALOG}")
 spark.sql(f"USE SCHEMA {GOLD_SCHEMA}")
 
@@ -55,5 +59,28 @@ for table in gold_tables:
     print(f"Columns : {len(df.columns)}")
 
     display(df.limit(5))
+
+try:
+
+    # Existing Silver notebook logic
+
+    send_success_notification(
+        layer="Silver",
+        notebook="02_Gold_Validation",
+        pipeline="Gold_Validation_Load"
+    )
+
+except Exception as e:
+
+    logger.error(str(e))
+
+    send_failure_notification(
+        layer="Silver",
+        notebook="02_Gold_Validation",
+        pipeline="Gold_Validation_Load",
+        error=str(e)
+    )
+
+    raise
 
 logger.info("Gold Layer Validation Completed Successfully")

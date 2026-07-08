@@ -1,17 +1,26 @@
 # Databricks notebook source
+# MAGIC %run /Workspace/E-Commerce-ETL/Common/01_Config
+
+# COMMAND ----------
+
+# MAGIC %run /Workspace/E-Commerce-ETL/Common/02_Utilities
+
+# COMMAND ----------
+
+# MAGIC %run /Workspace/E-Commerce-ETL/Common/03_Logger
+
+# COMMAND ----------
+
+# MAGIC %run /Workspace/E-Commerce-ETL/Common/04_Slack_Notifications
+
+# COMMAND ----------
+
 # ==========================================================
 # Project      : E-Commerce Sales Analytics Platform
 # Notebook     : 01_Bronze_Load
 # Description  : Bronze Layer Data Load
 # Author       : Sakshi Bejagmwar
 # ==========================================================
-
-# Load Common Notebooks
-
-%run /Workspace/E-Commerce-ETL/Common/01_Config.ipynb
-%run /Workspace/E-Commerce-ETL/Common/02_Utilities.ipynb
-%run /Workspace/E-Commerce-ETL/Common/03_Logger.ipynb
-
 def bronze_load(dataset):
 
     file_name = dataset["file"]
@@ -27,35 +36,49 @@ def bronze_load(dataset):
     logger.info(f"Started loading {table_name}")
 
     try:
-        # Read Source File
+
         df = (
             spark.read
             .format("parquet")
             .option("mergeSchema", "true")
             .load(source_path)
         )
+
         rows_read = df.count()
 
-        # Bronze Metadata Columns
         df = (
             df
-            .withColumn("bronze_load_timestamp", current_timestamp())
-            .withColumn("bronze_load_date", current_date())
-            .withColumn("bronze_source_file", lit(file_name))
+            .withColumn(
+                "bronze_load_timestamp",
+                current_timestamp()
+            )
+            .withColumn(
+                "bronze_load_date",
+                current_date()
+            )
+            .withColumn(
+                "bronze_source_file",
+                lit(file_name)
+            )
         )
 
-        # Target table
         table_path = f"{CATALOG}.{SCHEMA}.{table_name}"
 
-        # Build merge condition
         if isinstance(primary_key, list):
-            merge_condition = " AND ".join(
-                [f"target.{col}=source.{col}" for col in primary_key]
-            )
-        else:
-            merge_condition = f"target.{primary_key}=source.{primary_key}"
 
-        # Merge or Create
+            merge_condition = " AND ".join(
+                [
+                    f"target.{col}=source.{col}"
+                    for col in primary_key
+                ]
+            )
+
+        else:
+
+            merge_condition = (
+                f"target.{primary_key}=source.{primary_key}"
+            )
+
         if spark.catalog.tableExists(table_path):
 
             delta_table = DeltaTable.forName(
@@ -79,7 +102,10 @@ def bronze_load(dataset):
             (
                 df.write
                 .format("delta")
-                .option("mergeSchema", "true")
+                .option(
+                    "mergeSchema",
+                    "true"
+                )
                 .saveAsTable(table_path)
             )
 
@@ -104,7 +130,9 @@ def bronze_load(dataset):
     except Exception as e:
 
         end_time = datetime.now()
+
         logger.error(str(e))
+
         write_error(
             table_name,
             e
@@ -123,15 +151,44 @@ def bronze_load(dataset):
 
         logger.error(f"{table_name} failed")
 
-# Execute Bronze Pipeline
-logger.info("Bronze Pipeline Started")
-for dataset in datasets:
-    bronze_load(dataset)
-logger.info("Bronze Pipeline Completed Successfully")
-logger.info("Bronze Pipeline Finished")
+        raise
+
+
+try:
+
+    logger.info("Bronze Pipeline Started")
+
+    for dataset in datasets:
+
+        bronze_load(dataset)
+
+    logger.info("Bronze Pipeline Completed Successfully")
+    logger.info("Bronze Pipeline Finished")
+
+    send_success_notification(
+        layer="Bronze",
+        notebook="01_Bronze_Load",
+        pipeline="Bronze_Load"
+    )
+
+except Exception as e:
+
+    logger.error(str(e))
+
+    send_failure_notification(
+        layer="Bronze",
+        notebook="01_Bronze_Load",
+        pipeline="Bronze_Load",
+        error=str(e)
+    )
+
+    raise
+
 
 display(
-    spark.sql(f"""
+    spark.sql(
+        f"""
         SHOW TABLES IN {CATALOG}.{SCHEMA}
-    """)
+        """
+    )
 )

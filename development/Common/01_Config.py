@@ -24,6 +24,27 @@ spark.sql(f"USE CATALOG {CATALOG}")
 spark.sql(f"USE SCHEMA {SCHEMA}")
 
 # ==========================================================
+# Silver Configuration
+# ==========================================================
+
+SILVER_CATALOG = "silver_catalog"
+SILVER_SCHEMA = "silver_sch"
+
+# ==========================================================
+# Gold Configuration
+# ==========================================================
+
+# Gold Layer
+
+GOLD_CATALOG = "gold_catalog"
+GOLD_SCHEMA = "gold_sch"
+
+GOLD_STORAGE_ACCOUNT = "stgecomdatalake001"
+GOLD_CONTAINER = "tgt-files"
+GOLD_FOLDER = "gold"
+
+GOLD_BASE_PATH = f"abfss://{GOLD_CONTAINER}@{GOLD_STORAGE_ACCOUNT}.dfs.core.windows.net/{GOLD_FOLDER}/"
+# ==========================================================
 # Azure Storage Configuration
 # ==========================================================
 

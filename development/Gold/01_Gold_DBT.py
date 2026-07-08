@@ -11,6 +11,10 @@
 
 # COMMAND ----------
 
+# MAGIC %run ../Common/04_Slack_Notifications
+
+# COMMAND ----------
+
 logger.info("Gold Layer Started")
 
 spark.sql(f"USE CATALOG {GOLD_CATALOG}")
@@ -43,3 +47,26 @@ for table in gold_tables:
     logger.info(f"{table} : {count} records")
 
 logger.info("Gold Layer Completed Successfully")
+
+try:
+
+    # Existing Silver notebook logic
+
+    send_success_notification(
+        layer="Silver",
+        notebook="01_Gold_DBT",
+        pipeline="Gold_DBT_Load"
+    )
+
+except Exception as e:
+
+    logger.error(str(e))
+
+    send_failure_notification(
+        layer="Silver",
+        notebook="01_Gold_DBT",
+        pipeline="Gold_DBT_Load",
+        error=str(e)
+    )
+
+    raise

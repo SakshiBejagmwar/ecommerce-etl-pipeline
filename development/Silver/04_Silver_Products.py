@@ -11,6 +11,10 @@
 
 # COMMAND ----------
 
+# MAGIC %run ../Common/04_Slack_Notifications
+
+# COMMAND ----------
+
 from pyspark.sql.functions import *
 from pyspark.sql.window import Window
 
@@ -142,6 +146,29 @@ print("Silver Products Validation")
 print("=" * 60)
 
 print(f"Row Count : {products_df.count()}")
+
+try:
+
+    # Existing Silver notebook logic
+
+    send_success_notification(
+        layer="Silver",
+        notebook="04_Silver_Products",
+        pipeline="Silver_Products_Load"
+    )
+
+except Exception as e:
+
+    logger.error(str(e))
+
+    send_failure_notification(
+        layer="Silver",
+        notebook="01_Silver_Products",
+        pipeline="Silver_Products_Load",
+        error=str(e)
+    )
+
+    raise
 
 display(
     spark.table(
