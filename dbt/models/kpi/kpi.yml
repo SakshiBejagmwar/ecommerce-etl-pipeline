@@ -1,0 +1,128 @@
+version: 2
+
+models:
+
+  - name: sales_summary
+    description: Overall Sales KPI Summary
+
+    columns:
+
+      - name: total_revenue
+        data_tests:
+          - not_null
+
+      - name: total_orders
+        data_tests:
+          - not_null
+
+      - name: total_customers
+        data_tests:
+          - not_null
+
+      - name: average_order_value
+        data_tests:
+          - not_null
+
+      - name: delivered_orders
+        data_tests:
+          - not_null
+
+      - name: cancelled_orders
+        data_tests:
+          - not_null
+
+
+  - name: customer_kpi
+    description: Customer KPI Metrics
+
+    columns:
+
+      - name: customer_id
+        data_tests:
+          - not_null
+
+      - name: total_orders
+        data_tests:
+          - not_null
+
+      - name: total_revenue
+        data_tests:
+          - not_null
+
+      - name: average_order_value
+        data_tests:
+          - not_null
+
+      - name: customer_type
+        data_tests:
+          - accepted_values:
+              arguments:
+                values:
+                  - Repeat Customer
+                  - New Customer
+
+
+  - name: product_kpi
+    description: Product KPI Metrics
+
+    columns:
+
+      - name: product_category_name
+        data_tests:
+          - not_null
+
+      - name: total_products
+        data_tests:
+          - not_null
+
+      - name: average_weight
+        data_tests:
+          - not_null
+
+
+  - name: seller_kpi
+    description: Seller KPI Metrics
+
+    columns:
+
+      - name: seller_state
+        data_tests:
+          - not_null
+
+      - name: total_sellers
+        data_tests:
+          - not_null
+
+      - name: total_cities
+        data_tests:
+          - not_null
+
+
+  - name: executive_dashboard
+    description: Executive Dashboard KPIs
+
+    columns:
+
+      - name: total_revenue
+        data_tests:
+          - not_null
+
+      - name: total_orders
+        data_tests:
+          - not_null
+
+      - name: total_customers
+        data_tests:
+          - not_null
+
+      - name: average_order_value
+        data_tests:
+          - not_null
+
+      - name: delivered_orders
+        data_tests:
+          - not_null
+
+      - name: cancelled_orders
+        data_tests:
+          - not_null
