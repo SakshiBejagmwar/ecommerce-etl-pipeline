@@ -1,0 +1,38 @@
+version: 2
+
+models:
+
+  - name: fact_sales
+    description: Sales Fact Table
+
+    columns:
+
+      - name: sales_sk
+        data_tests:
+          - not_null
+
+      - name: customer_sk
+        data_tests:
+          - not_null
+
+      - name: order_sk
+        data_tests:
+          - not_null
+
+      - name: order_id
+        data_tests:
+          - not_null
+
+      - name: customer_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_customer')
+                field: customer_id
+
+      - name: order_date
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: order_date

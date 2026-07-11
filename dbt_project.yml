@@ -1,0 +1,33 @@
+name: 'ecommerce_gold'
+version: '1.0.0'
+config-version: 2
+
+profile: 'default'
+
+model-paths: ["dbt/models"]
+test-paths: ["dbt/tests"]
+
+target-path: "target"
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  ecommerce_gold:
+    +catalog: gold_catalog
+
+    staging:
+      +materialized: view
+
+    dimensions:
+      +materialized: table
+
+    facts:
+      +materialized: table
+
+    marts:
+      +materialized: table
+
+    kpi:
+      +materialized: table
