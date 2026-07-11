@@ -1,7 +1,5 @@
 {{ config(materialized='table') }}
-
 select
-
     customer_sk,
     customer_id,
     customer_unique_id,
@@ -11,5 +9,4 @@ select
     effective_date,
     expiry_date,
     is_current
-
 from {{ ref('stg_customers') }}
