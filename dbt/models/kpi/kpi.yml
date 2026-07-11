@@ -7,19 +7,11 @@ models:
 
     columns:
 
-      - name: total_revenue
-        data_tests:
-          - not_null
-
       - name: total_orders
         data_tests:
           - not_null
 
       - name: total_customers
-        data_tests:
-          - not_null
-
-      - name: average_order_value
         data_tests:
           - not_null
 
@@ -42,14 +34,6 @@ models:
           - not_null
 
       - name: total_orders
-        data_tests:
-          - not_null
-
-      - name: total_revenue
-        data_tests:
-          - not_null
-
-      - name: average_order_value
         data_tests:
           - not_null
 
